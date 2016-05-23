@@ -11,7 +11,7 @@ public class ProjectUtils {
 	
 	public static Project findProjectById(int id){
 		session = HibernateUtils.getSession();
-		Criteria crit = session.createCriteria(Process.class);
+		Criteria crit = session.createCriteria(Project.class);
 		crit.add(Restrictions.idEq(id));
 		if(!crit.list().isEmpty())return (Project)crit.list().get(0);
 		else return null;

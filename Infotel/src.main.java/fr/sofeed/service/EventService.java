@@ -41,6 +41,7 @@ public class EventService {
 	public Response createEvent(Event event){
 		session = HibernateUtils.getSession();
 		session.save(event);
+		//TODO publish event to queue
 		return  Response.status(200).build();
 	}
 	

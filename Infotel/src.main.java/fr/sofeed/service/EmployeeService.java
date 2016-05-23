@@ -72,7 +72,7 @@ public class EmployeeService {
 	@GET
 	@Path("{id}/event/list")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Set<Event> getEvents(@PathParam("id") int id){
+	public List<Event> getEvents(@PathParam("id") int id){
 		session = HibernateUtils.getSession();
 		Employee employee = EmployeeUtils.findEmployeeById(id);	
 		return employee.getEvents();
@@ -80,8 +80,8 @@ public class EmployeeService {
 	
 	@GET
 	@Path("{id}/project/list")
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Set<Project> getProjects(@PathParam("id") int id){
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Project> getProjects(@PathParam("id") int id){
 		session = HibernateUtils.getSession();
 		Employee employee = EmployeeUtils.findEmployeeById(id);	
 		return employee.getProjects();
@@ -90,7 +90,7 @@ public class EmployeeService {
 	@GET
 	@Path("{id}/ticket/list")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Set<Ticket> getTickets(@PathParam("id") int id){
+	public List<Ticket> getTickets(@PathParam("id") int id){
 		session = HibernateUtils.getSession();
 		Employee employee = EmployeeUtils.findEmployeeById(id);	
 		return employee.getTickets();

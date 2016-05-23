@@ -55,6 +55,7 @@ public class ProjectService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Employee> getParticipants(@PathParam("id") int id){
 		Project project = ProjectUtils.findProjectById(id);
+		System.out.println(project);
 		return project.getTeam();
 	}
 	

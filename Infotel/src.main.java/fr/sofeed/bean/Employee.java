@@ -44,9 +44,9 @@ public class Employee{
 	private String profilPicture;
 	@Column (name="agency")
 	private String agency;
-	private Set<Ticket> tickets;	
-	private Set<Project> projects;
-	private Set<Event> events;
+	private List<Ticket> tickets;	
+	private List<Project> projects;
+	private List<Event> events;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -101,18 +101,18 @@ public class Employee{
 	}
 	@JsonIgnore
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "employees")
-	public Set<Ticket> getTickets() {
+	public List<Ticket> getTickets() {
 		return tickets;
 	}
-	public void setTickets(Set<Ticket> tickets) {
+	public void setTickets(List<Ticket> tickets) {
 		this.tickets = tickets;
 	}
 	@JsonIgnore
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "team")
-	public Set<Project> getProjects() {
+	public List<Project> getProjects() {
 		return projects;
 	}
-	public void setProjects(Set<Project> projects) {
+	public void setProjects(List<Project> projects) {
 		this.projects = projects;
 	}
 	public Date getBirthDate() {
@@ -123,10 +123,10 @@ public class Employee{
 	}
 	@JsonIgnore
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "participants")
-	public Set<Event> getEvents() {
+	public List<Event> getEvents() {
 		return events;
 	}
-	public void setEvents(Set<Event> events) {
+	public void setEvents(List<Event> events) {
 		this.events = events;
 	}
 }
