@@ -7,19 +7,15 @@
         <property name="hibernate.connection.password">root</property>
         <property name="hibernate.connection.url">jdbc:postgresql://192.168.0.81:5432/sofeeddb</property>
         <property name="connection_pool_size">1</property>
-        <!-- <property name="hbm2ddl.auto">create</property> -->
+        <property name="hbm2ddl.auto">create</property>
         <property name="show_sql">true</property>
 
 
        <mapping class="fr.sofeed.bean.Employee"/>
        <mapping class="fr.sofeed.bean.Project"/>
        <mapping class="fr.sofeed.bean.Document"/>
-       
-       <!-- 
-       
-       <mapping class="fr.sofeed.bean.Event"/>
        <mapping class="fr.sofeed.bean.Ticket"/>
-         -->
+       <mapping class="fr.sofeed.bean.Event"/>
        
 
        

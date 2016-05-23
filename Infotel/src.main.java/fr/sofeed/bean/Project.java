@@ -29,6 +29,7 @@ public class Project {
 	private String information;
 	private List<Document> documents;
 	private List<Employee> team;
+	private List<Ticket> tickets;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
@@ -74,5 +75,12 @@ public class Project {
 	}
 	public void setDocuments(List<Document> documents) {
 		this.documents = documents;
+	}
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "project")
+	public List<Ticket> getTickets() {
+		return tickets;
+	}
+	public void setTickets(List<Ticket> tickets) {
+		this.tickets = tickets;
 	}
 }

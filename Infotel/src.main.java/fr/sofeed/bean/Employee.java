@@ -39,12 +39,7 @@ public class Employee{
 	private String profilPicture;
 	@Column (name="agency")
 	private String agency;
-//	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//	@JoinTable( name="employees_tickets", catalog="sofeeddb", joinColumns = {
-//			@JoinColumn(name = "id_employee")},
-//			inverseJoinColumns = { @JoinColumn(name="id_ticket")})
-//	private Set<Ticket> tickets;
-	
+	private Set<Ticket> tickets;	
 	private Set<Project> projects;
 
 //	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -104,13 +99,13 @@ public class Employee{
 	public void setAgency(String agency) {
 		this.agency = agency;
 	}
-	
-//	public Set<Ticket> getTickets() {
-//		return tickets;
-//	}
-//	public void setTickets(Set<Ticket> tickets) {
-//		this.tickets = tickets;
-//	}
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "employees")
+	public Set<Ticket> getTickets() {
+		return tickets;
+	}
+	public void setTickets(Set<Ticket> tickets) {
+		this.tickets = tickets;
+	}
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "team")
 	public Set<Project> getProjects() {
 		return projects;

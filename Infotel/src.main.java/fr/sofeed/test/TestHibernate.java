@@ -39,15 +39,27 @@ public class TestHibernate {
 		team.add(emp);
 		project1.setTeam(team);
 		
-//		Document doc = new Document();
-//		doc.setName("Un doc");
-//		List<Document>documents = new ArrayList<Document>();
-//		documents.add(doc);
-//		project1.setDocuments(documents);
+		Document doc = new Document();
+		doc.setName("Un doc");
+		doc.setProject(project1);
 		
+		Ticket ticket = new Ticket();
+		ticket.setName("Un ticket");
+		ticket.setProject(project1);
+		ticket.setEmployees(team);
+		
+		Event event = new Event();
+		event.setName("Un event");
+		event.setParticipants(team);
+
 		Session session = HibernateUtils.getSession();
 		session.beginTransaction();
+		
 		session.save(project1);
+		session.save(event);
+		session.save(doc);
+		session.save(ticket);
+		
 		session.getTransaction().commit();
 		
 		session.close();

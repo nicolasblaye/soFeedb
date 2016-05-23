@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -26,12 +27,13 @@ public class Ticket {
 	private String name;
 	@Column(name="description")
 	private String description;
-	private List<Employee> employee;
+	private List<Employee> employees;
+	private Project project;
 	
 	public Date getStartDate() {
 		return startDate;
 	}
-	public void setStartTime(Date startDate) {
+	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
 	}
 	public String getName() {
@@ -47,14 +49,14 @@ public class Ticket {
 		this.description = description;
 	}
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable( name="employees_tickets", catalog="sofeeddb", joinColumns = {
+	@JoinTable( name="tickets_employees", catalog="sofeeddb", joinColumns = {
 			@JoinColumn(name = "id_ticket")},
 			inverseJoinColumns = { @JoinColumn(name="id_employee")})
-	public List<Employee> getEmployee() {
-		return employee;
+	public List<Employee> getEmployees() {
+		return employees;
 	}
-	public void setEmployee(List<Employee> employee) {
-		this.employee = employee;
+	public void setEmployees(List<Employee> employees) {
+		this.employees = employees;
 	}
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
@@ -64,6 +66,14 @@ public class Ticket {
 	}
 	public void setId(int id) {
 		this.id = id;
+	}
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "id_project")
+	public Project getProject() {
+		return project;
+	}
+	public void setProject(Project project) {
+		this.project = project;
 	}
 
 }

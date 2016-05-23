@@ -62,7 +62,7 @@ public class Event {
 		this.endDate = endDate;
 	}
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable( name="employees_events", catalog="sofeeddb", joinColumns = {
+	@JoinTable( name="events_employees", catalog="sofeeddb", joinColumns = {
 			@JoinColumn(name = "id_event")},
 			inverseJoinColumns = { @JoinColumn(name="id_employee")})
 	public List<Employee> getParticipants() {
