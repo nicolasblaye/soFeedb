@@ -7,28 +7,19 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.MediaType;
-
-import org.hibernate.Session;
-import org.hibernate.criterion.Restrictions;
 
 import fr.sofeed.bean.Employee;
 import fr.sofeed.bean.Event;
-import fr.sofeed.utils.HibernateUtils;
 
 @Path("/event")
 public class EventService {
-	private Session session;
 	
-	@GET
-	@Path("{id}")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Event getEvent(@PathParam("id") int id){
-		Event event = findEventById(id);
-		return null;
-	}
+//	@GET
+//	@Path("{id}")
+//	public Event getEvent(@PathParam("id") int id){
+//		return null;
+//	}
 //	
 //	@POST
 //	@Path("/")
@@ -70,18 +61,5 @@ public class EventService {
 //			@QueryParam("location") String location){
 //		return null;
 //	}
-
-	private Event findEventById(int id) {
-		session = HibernateUtils.getSession();
-		Event event = null;
-		List results = session.createCriteria(Event.class)
-				.setMaxResults(1)
-				.add(Restrictions.idEq(id))
-				.list();
-		if (!results.isEmpty()){
-			event = (Event) results.get(0);
-		}
-		return event;
-	}
 
 }
