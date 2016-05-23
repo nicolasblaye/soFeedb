@@ -4,9 +4,12 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -19,8 +22,7 @@ public class Document {
 	private Date date;
 	@Column(name="path")
 	private String path;
-	@Column(name="id_project")
-	private int id_project;
+	private Project project;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
@@ -49,11 +51,13 @@ public class Document {
 	public void setPath(String path) {
 		this.path = path;
 	}
-	public int getId_project() {
-		return id_project;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_project")
+	public Project getProject() {
+		return project;
 	}
-	public void setId_project(int id_project) {
-		this.id_project = id_project;
+	public void setProject(Project project) {
+		this.project = project;
 	}
 
 }

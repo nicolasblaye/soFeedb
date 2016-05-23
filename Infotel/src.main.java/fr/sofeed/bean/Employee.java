@@ -39,25 +39,22 @@ public class Employee{
 	private String profilPicture;
 	@Column (name="agency")
 	private String agency;
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable( name="employees_tickets", catalog="sofeeddb", joinColumns = {
-			@JoinColumn(name = "id_employee")},
-			inverseJoinColumns = { @JoinColumn(name="id_ticket")})
-	private Set<Ticket> tickets;
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable( name="employees_projects", catalog="sofeeddb", joinColumns = {
-			@JoinColumn(name = "id_employee")},
-			inverseJoinColumns = { @JoinColumn(name="id_project")})
+//	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//	@JoinTable( name="employees_tickets", catalog="sofeeddb", joinColumns = {
+//			@JoinColumn(name = "id_employee")},
+//			inverseJoinColumns = { @JoinColumn(name="id_ticket")})
+//	private Set<Ticket> tickets;
+	
 	private Set<Project> projects;
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable( name="employees_events", catalog="sofeeddb", joinColumns = {
-			@JoinColumn(name = "id_employee")},
-			inverseJoinColumns = { @JoinColumn(name="id_event")})
-	private Set<Event> events;
+//	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//	@JoinTable( name="employees_events", catalog="sofeeddb", joinColumns = {
+//			@JoinColumn(name = "id_employee")},
+//			inverseJoinColumns = { @JoinColumn(name="id_event")})
+//	private Set<Event> events;
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "id")
 	public int getId() {
 		return id;
@@ -108,13 +105,13 @@ public class Employee{
 		this.agency = agency;
 	}
 	
-	public Set<Ticket> getTickets() {
-		return tickets;
-	}
-	public void setTickets(Set<Ticket> tickets) {
-		this.tickets = tickets;
-	}
-	
+//	public Set<Ticket> getTickets() {
+//		return tickets;
+//	}
+//	public void setTickets(Set<Ticket> tickets) {
+//		this.tickets = tickets;
+//	}
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "team")
 	public Set<Project> getProjects() {
 		return projects;
 	}
@@ -127,10 +124,10 @@ public class Employee{
 	public void setBirthDate(Date birthDate) {
 		this.birthDate = birthDate;
 	}
-	public Set<Event> getEvents() {
-		return events;
-	}
-	public void setEvents(Set<Event> events) {
-		this.events = events;
-	}
+//	public Set<Event> getEvents() {
+//		return events;
+//	}
+//	public void setEvents(Set<Event> events) {
+//		this.events = events;
+//	}
 }

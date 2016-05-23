@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -56,8 +57,9 @@ public class Project {
 	public void setInformation(String information) {
 		this.information = information;
 	}
+	
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable( name="employees_projects", catalog="sofeeddb", joinColumns = {
+	@JoinTable( name="projects_employees", catalog="sofeeddb", joinColumns = {
 			@JoinColumn(name = "id_project")},
 			inverseJoinColumns = { @JoinColumn(name="id_employee")})
 	public List<Employee> getTeam() {
@@ -66,6 +68,7 @@ public class Project {
 	public void setTeam(List<Employee> team) {
 		this.team = team;
 	}
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "project")
 	public List<Document> getDocuments() {
 		return documents;
 	}
