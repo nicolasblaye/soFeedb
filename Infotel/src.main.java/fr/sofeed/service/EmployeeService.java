@@ -1,6 +1,7 @@
 package fr.sofeed.service;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -12,23 +13,28 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
 import fr.sofeed.bean.Employee;
 import fr.sofeed.bean.Event;
 import fr.sofeed.bean.Project;
+import fr.sofeed.bean.Ticket;
 import fr.sofeed.utils.HibernateUtils;
 
 @Path("/employee")
 public class EmployeeService {
 	private Session session;
 	
-//	@GET
-//	@Path("/list")
-//	public List<Employee> getEmployees(){
-//		return null;
-//	}
+	@GET
+	@Path("/list")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Employee> getEmployees(){
+		session = HibernateUtils.getSession();
+		Criteria crit = session.createCriteria(Employee.class);
+		return (List<Employee>)crit.list();
+	}
 	
 	@GET
 	@Path("/{id}")
@@ -59,38 +65,56 @@ public class EmployeeService {
 		session.save(employee);
 		return Response.status(200).entity(employee).build();
 	}
-//	
-//	@GET
-//	@Path("/search")
-//	public List<Employee> searchEmployee(
-//			@QueryParam("firstName") String firstName,
-//			@QueryParam("lastName") String lastName,
-//			@QueryParam("project") Project project,
-//			@QueryParam("agency") String agency){
-//		return null;
-//	}
-//	
-//	@GET
-//	@Path("{id}/event/list")
-//	public List<Event> getEvents(@QueryParam("id") int id){
-//		return null;
-//	}
-//	
-//	@GET
-//	@Path("{id}/project/list")
-//	public List<Project> getProjects(@QueryParam("id") int id){
-//		return null;
-//	}
-//	
-//	@GET
-//	@Path("{id}/ticket/list")
-//	public List<Project> getTickets(@QueryParam("id") int id){
-//		return null;
-//	}
-//	
-//	@POST
-//	@Path("{id}")
-//	public void deleteEmployee(@QueryParam("id") int id){
-//		
-//	}
+	
+	@GET
+	@Path("/search")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Employee> searchEmployee(
+			@QueryParam("name") String firstName,
+			@QueryParam("surname") String lastName,
+			@QueryParam("agency") String agency){
+		session = HibernateUtils.getSession();
+		Criteria crit = session.createCriteria(Employee.class);
+		if (firstName!=null)crit.add(Restrictions.like("name", "%"+firstName+"%"));
+		if (lastName!=null)crit.add(Restrictions.like("surname", "%"+lastName+"%"));
+		if (agency!=null)crit.add(Restrictions.like("agency", "%"+agency+"%"));
+		return (List<Employee>) crit.list();
+	}
+	
+	@GET
+	@Path("{id}/event/list")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Set<Event> getEvents(@PathParam("id") int id){
+		session = HibernateUtils.getSession();
+		Employee employee = findEmployeeById(id);	
+		return employee.getEvents();
+	}
+	
+	@GET
+	@Path("{id}/project/list")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Set<Project> getProjects(@PathParam("id") int id){
+		session = HibernateUtils.getSession();
+		Employee employee = findEmployeeById(id);	
+		return employee.getProjects();
+	}
+	
+	@GET
+	@Path("{id}/ticket/list")
+	public Set<Ticket> getTickets(@PathParam("id") int id){
+		session = HibernateUtils.getSession();
+		Employee employee = findEmployeeById(id);	
+		return employee.getTickets();
+	}
+	
+	@POST
+	@Path("/modify/{id}")
+	public void deleteEmployee(@PathParam("id") int id,
+			@QueryParam("name")String name,
+			@QueryParam("agency")String agency){
+		session = HibernateUtils.getSession();
+		Employee employee  = findEmployeeById(id);
+		if (name!=null)employee.setName(name);
+		if (agency!=null)employee.setAgency(agency);
+	}
 }
