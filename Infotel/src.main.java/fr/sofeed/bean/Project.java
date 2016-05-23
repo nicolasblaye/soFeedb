@@ -16,8 +16,12 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 @Entity
 @Table(name="projects")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 // a project at Infotel
 public class Project {
 	private int id;
@@ -58,7 +62,7 @@ public class Project {
 	public void setInformation(String information) {
 		this.information = information;
 	}
-	
+	@JsonIgnore
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable( name="projects_employees", catalog="sofeeddb", joinColumns = {
 			@JoinColumn(name = "id_project")},
@@ -69,6 +73,7 @@ public class Project {
 	public void setTeam(List<Employee> team) {
 		this.team = team;
 	}
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "project")
 	public List<Document> getDocuments() {
 		return documents;
@@ -76,6 +81,7 @@ public class Project {
 	public void setDocuments(List<Document> documents) {
 		this.documents = documents;
 	}
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "project")
 	public List<Ticket> getTickets() {
 		return tickets;

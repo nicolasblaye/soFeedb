@@ -14,12 +14,17 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 import javax.persistence.CascadeType;
 
 
 @Entity
 @Table(name="employees")
 // base function for infotel employee
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Employee{
 	
 	private int id;
@@ -94,6 +99,7 @@ public class Employee{
 	public void setAgency(String agency) {
 		this.agency = agency;
 	}
+	@JsonIgnore
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "employees")
 	public Set<Ticket> getTickets() {
 		return tickets;
@@ -101,6 +107,7 @@ public class Employee{
 	public void setTickets(Set<Ticket> tickets) {
 		this.tickets = tickets;
 	}
+	@JsonIgnore
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "team")
 	public Set<Project> getProjects() {
 		return projects;
@@ -114,6 +121,7 @@ public class Employee{
 	public void setBirthDate(Date birthDate) {
 		this.birthDate = birthDate;
 	}
+	@JsonIgnore
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "participants")
 	public Set<Event> getEvents() {
 		return events;

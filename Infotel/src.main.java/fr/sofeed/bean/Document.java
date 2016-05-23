@@ -13,8 +13,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 @Entity
 @Table(name="documents")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Document {
 	private int id;
 	@Column(name="name")
@@ -52,6 +56,7 @@ public class Document {
 	public void setPath(String path) {
 		this.path = path;
 	}
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_project")
 	public Project getProject() {

@@ -17,8 +17,12 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 @Entity
 @Table(name="tickets")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Ticket {
 	private int id;
 	@Column(name="startDate")
@@ -48,6 +52,7 @@ public class Ticket {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	@JsonIgnore
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable( name="tickets_employees", catalog="sofeeddb", joinColumns = {
 			@JoinColumn(name = "id_ticket")},
@@ -67,6 +72,7 @@ public class Ticket {
 	public void setId(int id) {
 		this.id = id;
 	}
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_project")
 	public Project getProject() {

@@ -15,8 +15,12 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 @Entity
 @Table(name="events")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Event {
 	private int id;
 	@Column(name="name")
@@ -61,6 +65,7 @@ public class Event {
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
+	@JsonIgnore
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable( name="events_employees", catalog="sofeeddb", joinColumns = {
 			@JoinColumn(name = "id_event")},
