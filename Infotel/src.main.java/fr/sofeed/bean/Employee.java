@@ -41,12 +41,7 @@ public class Employee{
 	private String agency;
 	private Set<Ticket> tickets;	
 	private Set<Project> projects;
-
-//	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//	@JoinTable( name="employees_events", catalog="sofeeddb", joinColumns = {
-//			@JoinColumn(name = "id_employee")},
-//			inverseJoinColumns = { @JoinColumn(name="id_event")})
-//	private Set<Event> events;
+	private Set<Event> events;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -119,10 +114,11 @@ public class Employee{
 	public void setBirthDate(Date birthDate) {
 		this.birthDate = birthDate;
 	}
-//	public Set<Event> getEvents() {
-//		return events;
-//	}
-//	public void setEvents(Set<Event> events) {
-//		this.events = events;
-//	}
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "participants")
+	public Set<Event> getEvents() {
+		return events;
+	}
+	public void setEvents(Set<Event> events) {
+		this.events = events;
+	}
 }
