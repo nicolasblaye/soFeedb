@@ -101,6 +101,7 @@ public class EmployeeService {
 	
 	@GET
 	@Path("{id}/ticket/list")
+	@Produces(MediaType.APPLICATION_JSON)
 	public Set<Ticket> getTickets(@PathParam("id") int id){
 		session = HibernateUtils.getSession();
 		Employee employee = findEmployeeById(id);	
@@ -109,6 +110,7 @@ public class EmployeeService {
 	
 	@POST
 	@Path("/modify/{id}")
+	@Consumes(MediaType.APPLICATION_JSON)
 	public void deleteEmployee(@PathParam("id") int id,
 			@QueryParam("name")String name,
 			@QueryParam("agency")String agency){
