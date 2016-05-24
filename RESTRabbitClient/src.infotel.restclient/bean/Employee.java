@@ -4,13 +4,16 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+import org.codehaus.jackson.annotate.JsonAutoDetect;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 
 
 // base function for infotel employee
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@XmlRootElement(name="employee")
 public class Employee{
 	
 	private int id;

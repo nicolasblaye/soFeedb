@@ -1,8 +1,12 @@
 package fr.sofeed.service;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Set;
 
+import javax.imageio.stream.ImageOutputStreamImpl;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -16,6 +20,8 @@ import javax.ws.rs.core.Response;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
+
+import com.sun.xml.bind.api.impl.NameConverter.Standard;
 
 import fr.sofeed.bean.Employee;
 import fr.sofeed.bean.Event;
@@ -48,9 +54,11 @@ public class EmployeeService {
 	@POST
 	@Path("/")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response createEmployee(Employee employee){
+	public Response createEmployee(Employee employee) throws IOException{
 		session = HibernateUtils.getSession();
+		session.beginTransaction();
 		session.save(employee);
+		session.getTransaction().commit();
 		return Response.status(200).build();
 	}
 	
@@ -106,5 +114,8 @@ public class EmployeeService {
 		Employee employee  = EmployeeUtils.findEmployeeById(id);
 		if (name!=null)employee.setName(name);
 		if (agency!=null)employee.setAgency(agency);
+		session.beginTransaction();
+		session.save(employee);
+		session.getTransaction().commit();
 	}
 }

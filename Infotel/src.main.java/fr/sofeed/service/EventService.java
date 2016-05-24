@@ -1,6 +1,5 @@
 package fr.sofeed.service;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -9,13 +8,11 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
-import org.hibernate.criterion.Restrictions;
 
 import fr.sofeed.bean.Employee;
 import fr.sofeed.bean.Event;
@@ -40,8 +37,9 @@ public class EventService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response createEvent(Event event){
 		session = HibernateUtils.getSession();
+		session.beginTransaction();
 		session.save(event);
-		//TODO publish event to queue
+		session.getTransaction().commit();
 		return  Response.status(200).build();
 	}
 	
@@ -63,7 +61,7 @@ public class EventService {
 	}
 	
 	@POST
-	@Path("{id}/participant/employeeId")
+	@Path("{id}/participant/{employeeId}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void addParticipant(@PathParam("id") int id, @PathParam("employeeId") int employeeId){
 		Employee emp = EmployeeUtils.findEmployeeById(employeeId);
@@ -72,7 +70,9 @@ public class EventService {
 		participant.add(emp);
 		event.setParticipants(participant);
 		session = HibernateUtils.getSession();
+		session.beginTransaction();
 		session.save(event);
+		session.getTransaction().commit();
 	}
 	
 	@POST
@@ -84,6 +84,9 @@ public class EventService {
 		if (event.getName()!=null && event.getName()!=""){
 			to_modify.setName(event.getName());
 		}
+		session.beginTransaction();
+		session.save(to_modify);
+		session.getTransaction().commit();
 	}
 	
 //	@GET

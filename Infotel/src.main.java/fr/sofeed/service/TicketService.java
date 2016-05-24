@@ -1,10 +1,11 @@
 package fr.sofeed.service;
 
-import javax.annotation.PostConstruct;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.hibernate.Session;
@@ -23,7 +24,16 @@ public class TicketService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void addTicket(Ticket ticket){
 		session = HibernateUtils.getSession();
+		session.beginTransaction();
 		session.save(ticket);
+		session.getTransaction().commit();
+	}
+	@GET
+	@Path("/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Ticket getTicket(@PathParam("id") int id){
+		Ticket ticket = TicketUtils.findTicketById(id);
+		return ticket;
 	}
 	@POST
 	@Path("/delete/{id}")
@@ -31,7 +41,9 @@ public class TicketService {
 	public void deleteTicket(@PathParam("id") int id){
 		session = HibernateUtils.getSession();
 		Ticket ticket = TicketUtils.findTicketById(id);
+		session.beginTransaction();
 		session.delete(ticket);
+		session.getTransaction().commit();
 	}
 
 }

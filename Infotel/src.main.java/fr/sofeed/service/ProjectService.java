@@ -37,7 +37,9 @@ public class ProjectService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response createProject(Project project){
 		session = HibernateUtils.getSession();
+		session.beginTransaction();
 		session.save(project);
+		session.getTransaction().commit();
 		return Response.status(200).build();
 	}
 	
@@ -69,7 +71,9 @@ public class ProjectService {
 		team.add(emp);
 		project.setTeam(team);
 		session = HibernateUtils.getSession();
+		session.beginTransaction();
 		session.save(project);
+		session.getTransaction().commit();
 		return;
 	}
 	
@@ -83,7 +87,9 @@ public class ProjectService {
 		team.remove(emp);
 		project.setTeam(team);
 		session = HibernateUtils.getSession();
+		session.beginTransaction();
 		session.save(project);
+		session.getTransaction().commit();
 		return;
 	}
 	
