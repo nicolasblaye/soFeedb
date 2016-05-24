@@ -14,10 +14,12 @@ public class RabbitMQUtils {
 	public static Channel getRPCChannel() throws IOException, TimeoutException{
 		if (RPCChannel == null){	
 			ConnectionFactory factory = new ConnectionFactory();
-			factory.setHost("localhost");
+			factory.setHost("192.168.0.81");
+			factory.setPassword("guest");
+			factory.setUsername("guest");
 	
 			Connection connection = factory.newConnection();
-			Channel RPCChannel = connection.createChannel();
+			RPCChannel = connection.createChannel();
 	
 			RPCChannel.queueDeclare(RPC_QUEUE_NAME, false, false, false, null);
 	
