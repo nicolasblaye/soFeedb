@@ -9,6 +9,7 @@ import com.rabbitmq.client.AMQP.BasicProperties;
 import com.rabbitmq.client.Channel;
 
 import bean.Employee;
+import client.EmployeeClient;
 import utils.RabbitMQUtils;
 
 public class TestServer {
@@ -25,12 +26,13 @@ public class TestServer {
 	}
 	
 	public static void main(String[]args) throws IOException, TimeoutException{
-		TestServer t = new TestServer();
-		ObjectMapper mapper = new ObjectMapper();
-		Employee emp = new Employee();
-		emp.setName("TestMQ");
-		String message = mapper.writeValueAsString(emp);
-		t.call(message);
+//		TestServer t = new TestServer();
+//		ObjectMapper mapper = new ObjectMapper();
+//		Employee emp = new Employee();
+//		emp.setName("TestMQ");
+//		String message = mapper.writeValueAsString(emp);
+//		t.call(message);
+		EmployeeClient.getTicket();
 	}
 
 }

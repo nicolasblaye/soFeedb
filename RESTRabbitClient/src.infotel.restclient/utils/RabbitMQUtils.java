@@ -15,8 +15,6 @@ public class RabbitMQUtils {
 		if (RPCChannel == null){	
 			ConnectionFactory factory = new ConnectionFactory();
 			factory.setHost("192.168.0.81");
-			factory.setPassword("guest");
-			factory.setUsername("guest");
 	
 			Connection connection = factory.newConnection();
 			RPCChannel = connection.createChannel();
