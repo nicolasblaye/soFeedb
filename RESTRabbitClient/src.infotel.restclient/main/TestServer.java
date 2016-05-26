@@ -1,6 +1,7 @@
 package main;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.concurrent.TimeoutException;
 
 import org.codehaus.jackson.map.ObjectMapper;
@@ -9,7 +10,9 @@ import com.rabbitmq.client.AMQP.BasicProperties;
 import com.rabbitmq.client.Channel;
 
 import bean.Employee;
+import bean.Event;
 import client.EmployeeClient;
+import client.EventClient;
 import utils.RabbitMQUtils;
 
 public class TestServer {
@@ -32,7 +35,10 @@ public class TestServer {
 //		emp.setName("TestMQ");
 //		String message = mapper.writeValueAsString(emp);
 //		t.call(message);
-		EmployeeClient.getTicket();
+		Event evt = new Event();
+		evt.setName("un event");
+		evt.setStartDate(new Date());
+		EventClient.createEvent(evt);
 	}
 
 }
