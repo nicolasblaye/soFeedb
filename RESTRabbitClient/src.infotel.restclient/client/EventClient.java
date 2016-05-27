@@ -32,7 +32,7 @@ public class EventClient {
 			String message = "Alerte: "+evt.getName()+" le " + cal.get(Calendar.DAY_OF_MONTH) + "/" + cal.get(Calendar.MONTH);
 			System.out.println(message);
 			System.out.println(channel);
-			channel.basicPublish("amq.fanout", "notification", props, message.getBytes());
+			channel.basicPublish("amq.direct", "notification", props, message.getBytes());
 			System.out.println(channel.messageCount("notification"));
 			channel.close();
 		}
