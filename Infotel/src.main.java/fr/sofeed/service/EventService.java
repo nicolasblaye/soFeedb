@@ -49,7 +49,9 @@ public class EventService {
 	public List<Event> getEvents(){
 		session = HibernateUtils.getSession();
 		Criteria crit = session.createCriteria(Event.class);
-		return (List<Event>) crit.list();
+		List<Event>events = (List<Event>) crit.list();
+		session.close();
+		return events;
 	}
 	
 	@GET

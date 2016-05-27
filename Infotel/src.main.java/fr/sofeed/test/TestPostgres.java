@@ -10,7 +10,7 @@ public class TestPostgres {
 		try {
 			Class.forName("org.postgresql.Driver");
 			Connection connection = DriverManager.getConnection(""
-					+ "jdbc:postgresql://localhost:5432/sofeeddb","postgres","root");
+					+ "jdbc:postgresql://192.168.1.66:5432/sofeeddb","postgres","root");
 			Statement stmt = connection.createStatement();
 			ResultSet rs = stmt.executeQuery("Select * from projects");
 			while(rs.next()){

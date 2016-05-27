@@ -31,11 +31,14 @@ public class EventClient {
 			cal.setTime(evt.getStartDate());
 			String message = "Alerte: "+evt.getName()+" le " + cal.get(Calendar.DAY_OF_MONTH) + "/" + cal.get(Calendar.MONTH);
 			System.out.println(message);
-			channel.basicPublish("", "notification", props, message.getBytes());
+			System.out.println(channel);
+			channel.basicPublish("amq.fanout", "notification", props, message.getBytes());
+			System.out.println(channel.messageCount("notification"));
 			channel.close();
 		}
 		catch(Exception e){
-			
+			System.out.println("something bad happened");
+			e.printStackTrace();
 		}
 		
 	}

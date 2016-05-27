@@ -101,6 +101,7 @@ public class EmployeeService {
 	public List<Ticket> getTickets(@PathParam("id") int id){
 		session = HibernateUtils.getSession();
 		Employee employee = EmployeeUtils.findEmployeeById(id);	
+		session.close();
 		return employee.getTickets();
 	}
 	
