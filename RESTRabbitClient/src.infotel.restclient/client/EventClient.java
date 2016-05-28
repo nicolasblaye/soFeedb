@@ -22,7 +22,7 @@ public class EventClient {
 	public static void createEvent(Event evt){
 		Client client = RestClientUtils.getClient();
 		WebResource webResource = client.resource("http://localhost:8080/infotel/event");
-		//ClientResponse response = webResource.type("application/json").post(ClientResponse.class, evt);
+		ClientResponse response = webResource.type("application/json").post(ClientResponse.class, evt);
 		try{
 			// queue = notification (plus simple, un peu nul...)
 			Channel channel = RabbitMQUtils.getNotificationChannel();

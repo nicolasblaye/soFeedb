@@ -62,7 +62,7 @@ public class TestHibernate {
 		doc.setPath("/doc/sofeed/compte_rendu_1.txt");
 		
 		Ticket ticket1 = new Ticket();
-		ticket1.setDescription("Developpement du service RabbitMQ pour la messagerie instantanée");
+		ticket1.setDescription("Developpement du service RabbitMQ pour la messagerie instantanee");
 		ticket1.setEmployees(team);
 		ticket1.setProject(project);
 		ticket1.setName("JIRA-1542");
@@ -78,14 +78,14 @@ public class TestHibernate {
 		ticket2.setStartDate(formatter.parse("5-mai-2016"));
 		
 		Event event = new Event();
-		event.setName("Soirée d'agence");
-		event.setDescription("Soirée organisée par l'agence de Mougins et Monaco pour tous les collaborateurs d'Infotel...");
+		event.setName("Soiree d'agence");
+		event.setDescription("Soirée organisee par l'agence de Mougins et Monaco pour tous les collaborateurs d'Infotel...");
 		event.setStartDate(formatter.parse("9-juin-2016"));
 		event.setEndDate(formatter.parse("9-juin-2016"));
 		event.setType("agence-mougins");
 		
 		Event event2 = new Event();
-		event2.setName("Concours étudiants");
+		event2.setName("Concours etudiants");
 		event2.setDescription("Concours de design d'application");
 		event2.setStartDate(formatter.parse("27-mai-2016"));
 		event2.setEndDate(formatter.parse("27-mai-2016"));

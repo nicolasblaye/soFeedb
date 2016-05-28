@@ -16,7 +16,7 @@ public class RabbitMQUtils {
 	public static Channel getRPCChannel() throws IOException, TimeoutException{
 		if (RPCChannel == null){	
 			ConnectionFactory factory = new ConnectionFactory();
-			factory.setHost("192.168.1.66");
+			factory.setHost("192.168.1.23");
 	
 			Connection connection = factory.newConnection();
 			RPCChannel = connection.createChannel();
@@ -32,7 +32,7 @@ public class RabbitMQUtils {
 	public static Channel getNotificationChannel() throws IOException, TimeoutException {
 		if (NotificationChannel == null){	
 			ConnectionFactory factory = new ConnectionFactory();
-			factory.setHost("192.168.1.66");
+			factory.setHost("192.168.1.23");
 			Connection connection = factory.newConnection();
 			NotificationChannel = connection.createChannel();
 			NotificationChannel.queueDeclare(NOTIFICATION_QUEUE_NAME, false, false, false, null);

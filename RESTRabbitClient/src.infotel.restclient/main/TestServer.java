@@ -36,7 +36,7 @@ public class TestServer {
 //		String message = mapper.writeValueAsString(emp);
 //		t.call(message);
 		Event evt = new Event();
-		evt.setName("un event");
+		evt.setName("Conference sur le postgreSQL");
 		evt.setStartDate(new Date());
 		EventClient.createEvent(evt);
 	}
